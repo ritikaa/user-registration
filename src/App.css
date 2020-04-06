@@ -1,38 +1,43 @@
-.App {
-  text-align: center;
+form {
+  /* Center the form on the page */
+  width: 400px;
+  margin: 0 auto;
+  /* Form Outline */
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+form div {
+  margin-top: 1em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+form div label {
+  /* Uniform size and alignment */
+  width: 80px;
+  display: inline-block;
+  padding-right: 1em;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea, select {
+  width: 280px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  font:1em sans-serif;
+  vertical-align: top;
 }
 
-.App-link {
-  color: #61dafb;
+input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.radioBtns label {
+  padding: 5px;
+  display: inline-block;
 }
