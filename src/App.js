@@ -13,6 +13,7 @@ class App extends Component {
       message: '',
       password: '',
       checkbox: [],
+      error: '',
     };
   }
 
@@ -27,10 +28,18 @@ class App extends Component {
         [name]: value
       } );
     }
+    this.state.error && this.setState({ error: ''})
   };
 
-  handleSubmit = () => {
-    alert('A new Form has been submitted with : ' + '\r\n' + 'Full Name :' + ' ' + this.state.fullName + '\r\n' + 'E-mail : ' + ' ' + this.state.email + '\r\n' + 'Phone : ' + ' ' + this.state.phone + '\r\n' + 'Gender : ' + ' ' + this.state.gender + '\r\n' + 'Country : ' + ' ' + this.state.country + '\r\n' + 'Message : ' + this.state.message + '\r\n' + 'Password : ' + ' ' + this.state.password + '\r\n' + 'Checkbox Selection :' + ' ' + this.state.checkbox);
+  handleSubmit = event => {
+    event.preventDefault();
+    if ( this.state.fullName !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.gender !== '' && this.state.country !== '' && this.state.message !== '' && this.state.password !== '' && this.state.checkbox.length ) {
+      this.setState({error: ''}, ()=> {
+        alert( 'A new Form has been submitted with : ' + '\r\n' + 'Full Name :' + ' ' + this.state.fullName + '\r\n' + 'E-mail : ' + ' ' + this.state.email + '\r\n' + 'Phone : ' + ' ' + this.state.phone + '\r\n' + 'Gender : ' + ' ' + this.state.gender + '\r\n' + 'Country : ' + ' ' + this.state.country + '\r\n' + 'Message : ' + this.state.message + '\r\n' + 'Password : ' + ' ' + this.state.password + '\r\n' + 'Checkbox Selection :' + ' ' + this.state.checkbox );
+      });
+    } else {
+      this.setState({ error: "submission error" });
+    }
   };
 
   render() {
@@ -38,6 +47,10 @@ class App extends Component {
       <>
           <form onSubmit={this.handleSubmit}>
             <h3>------ User Registration ------ </h3>
+            {
+              this.state.error &&
+                <div>Error!!</div>
+            }
             {/*Type: Text*/}
             <div>
               <label htmlFor="fullName">Full name : </label>
