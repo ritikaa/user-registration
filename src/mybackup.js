@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 
-const initialState = {
-  fullName: '',
-  email: '',
-  phone: '',
-  gender: 'Male',
-  country: 'India',
-  message: '',
-  password: '',
-  confirmPassword: '',
-  checkbox: [],
-  error: [],
-};
-
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = initialState;
+    this.state = {
+      fullName: '',
+      email: '',
+      phone: '',
+      gender: 'Male',
+      country: 'India',
+      message: '',
+      password: '',
+      confirmPassword: '',
+      checkbox: [],
+      error: '',
+    }
   }
 
   handleChange = (event) => {
@@ -34,45 +32,35 @@ class App extends Component {
       })
     }
     this.state.error && this.setState({
-      error: [],
+      error: '',
     })
   };
 
-  handleSubmit = event => {
-    const { fullName, email, phone, gender, password, confirmPassword, checkbox, error } = this.state;
+  handleSubmit = (event) => {
     event.preventDefault();
-    if(fullName !== '' && email !== '' && phone !== '' && gender !== '' && password !== '' && confirmPassword !== '' && checkbox.length) {
-      if(password !== confirmPassword) {
-        error.push('Passwords doesn\'t match');
-      }
-      if(!this.state.email.includes("@") && !this.state.email.includes(".")) {
-        error.push('Invalid email');
-      }
-      if(error.length) {
-        this.setState({ error: [...error] })
-      } else {
-        this.setState({
-          error: [],
-        }, () => {
-          alert( 'A new Form has been submitted with : ' + '\r\n' + 'Full Name :' + ' ' + this.state.fullName + '\r\n' + 'E-mail : ' + ' ' + this.state.email + '\r\n' + 'Phone : ' + ' ' + this.state.phone + '\r\n' + 'Gender : ' + ' ' + this.state.gender + '\r\n' + 'Country : ' + ' ' + this.state.country + '\r\n' + 'Message : ' + this.state.message + '\r\n' + 'Password : ' + ' ' + this.state.password + '\r\n' + 'Checkbox Selection :' + ' ' + this.state.checkbox);
-        })
-      }
+    if ( this.state.fullName !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.gender !== '' && this.state.country !== '' && this.state.message !== '' && this.state.password !== '' && this.state.confirmPassword !== '' && this.state.checkbox.length) {
+      this.setState({
+        error: '',
+      }, () => {
+
+        alert( 'A new Form has been submitted with : ' + '\r\n' + 'Full Name :' + ' ' + this.state.fullName + '\r\n' + 'E-mail : ' + ' ' + this.state.email + '\r\n' + 'Phone : ' + ' ' + this.state.phone + '\r\n' + 'Gender : ' + ' ' + this.state.gender + '\r\n' + 'Country : ' + ' ' + this.state.country + '\r\n' + 'Message : ' + this.state.message + '\r\n' + 'Password : ' + ' ' + this.state.password + '\r\n' + 'Checkbox Selection :' + ' ' + this.state.checkbox);
+
+      })
     } else {
-      error.push('Please fill all the fields!');
-      this.setState({error: [...error]});
+      this.setState({
+        error: 'submission error'
+      })
     }
-    // this.setState(initialState);
   };
 
   render() {
     return(
       <>
-        <form onSubmit={this.handleSubmit} noValidate={true}>
+        <form onSubmit={this.handleSubmit}>
           <h3>------ User Registration ------ </h3>
           {
-            this.state.error.map((err,index) => {
-              return <div style={{color: 'red'}} key={index}>{err}</div>
-            })
+            this.state.error &&
+            <div>Please fill out all the fields!</div>
           }
           {/*Type: Text*/}
           <div>
